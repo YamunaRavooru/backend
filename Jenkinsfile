@@ -11,6 +11,11 @@ pipeline {
         timeout(time:30,unit:'MINUTES') 
         
     }
+    parameters{
+      
+        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
+    
+    }
   
     stages{
         stage("Read Version"){
@@ -45,6 +50,14 @@ pipeline {
                 }
                  
                }
+            }
+        }
+        stage('Trigger Deploy'){
+            when { 
+                expression { params.deploy }
+            }
+            steps{
+                build job: 'backend-cd', parameters: [string(name: 'version', value: "${appVersion}")], wait: true
             }
         }
 
