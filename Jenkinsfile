@@ -52,14 +52,14 @@ pipeline {
                }
             }
         }
-        stage('Trigger Deploy'){
+        /* stage('Trigger Deploy'){
             when { 
                 expression { params.deploy }
             }
             steps{
                 build job: 'backend-cd', parameters: [string(name: 'version', value: "${appVersion}")], wait: true
             }
-        }
+        } */
 
 }
     post { 
